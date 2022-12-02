@@ -42,102 +42,30 @@ public class ImageToDotsLines {
      */
     public static void main(String[] args) throws IOException {
 
-        String s = "D:\\Pobrane\\pobrany plik.png";
-        s = "D:\\Pobrane\\x";
-        String s2;
-        s = "C:\\Users\\Karol\\Desktop\\rys\\sky.jpg";
-        int b=2;    //lepiej 3x4 niż 4x3 nakjpepszy wsp 1x4
-        int sc=4;
-        /*
-        float i=0.0f;
-        System.out.print("y:");
-        int h=0;
-        while(i<42)
-        {
-            h++;
-            i=2.1f*h;
-            System.out.print(", "+i);
-        }
-        i=0.0f;
-        
-        System.out.print("\nx:");
-        int w=0;
-        while(i<29.5)
-        {   
-            w++;
-            i=2.2f*w;
-            System.out.print(", "+i);
-        }*/
-        // curvedRound(s, "C:\\Users\\Karol\\Desktop\\mask1.jpg", 6,1,1);
-        // drawChecks(s, "C:\\Users\\Karol\\Desktop\\rys.jpg");
-        //imageToDOTS2(s, "C:\\Users\\Karol\\Desktop\\mask4.jpg",4,false);
-        /*
-         s="D:\\Pobrane\\x";
-        File f=new File(s);
-        for(File x:f.listFiles()){
-            if(x.isFile()){
-           // System.out.println(x.getParent());
-           curvedRound(x.getAbsolutePath(), x.getParent()+"\\l\\"+x.getName()+".png", 12,1.2,4);
-          // curvedLines(x.getAbsolutePath(), x.getParent()+"\\l\\"+x.getName()+".png", b,b*sc);
-          // curvedLines(x.getAbsolutePath(),  x.getParent()+"\\l\\"+x.getName()+".png",b,b*sc);
-          // imageToLine(x.getAbsolutePath(),  "C:\\Users\\Karol\\Desktop\\xd\\l\\"+x.getName()+".png",7);
-           //imageToDOTS2(x.getAbsolutePath(), "C:\\Users\\Karol\\Desktop\\xd\\k\\"+x.getName()+".png",10,true);
-        }
-        }
-         */
+        String s = "D:\\joke.jpg";
+        s="D:\\geralt.jpg";
+        String s2="D:\\test";
 
-     
-    /*    //curvedLines(s, s2+"\\cl1.jpg",6, 8);
-         curvedRound(s, s2+"\\cr1.jpg",
-                 2,
-                 2,
-                 2,
-                 false);*/
-          //curvedCircles(s, s2+"\\cc1.jpg", sc,sc);
-        //720 1200
-       imageToBurner_G_CODE(
-                s,      //source image
-                s2,     //out file
-                250,
-               // 100,      //min speed
-                1500,  //max speed 1700
-                /*5000*/  
-              //  2500,
-                0.078f,
-             //   0.08f,   //tool radius
-                5,      //lift z
-             30,
-                //  30,
-                //150,    //scale image
-            0.215f,
-           //  0.15f,
-               // 0.04f,  //scale gcode
-               true    //display white
-        );
-        //   imageToDOTS(s, s2+"\\itD1.jpg", sc);
-        //  imageToDOTS2(s, s2+"\\itD21.jpg", sc, false);
-        //  imageToDots(s, s2+"\\itdm1.jpg", sc);
-        // imageToLine(s, s2+"\\itl1.jpg", sc);
-        //   curvedLines(s, s2+"\\cl2.jpg", 4, 8);
-        //  curvedRound(s, s2+"\\cr2.jpg", 8,6,10,false);
-        //  curvedCircles(s, s2+"\\cc2.jpg", sc,sc);
-        // imageToDOTS(s, s2+"\\itD2.jpg", sc);
-        // imageToDOTS2(s, s2+"\\itD22.jpg", sc, true);
-        //  imageToDots(s, s2+"\\itdm2.jpg", 4);
-        //  imageToLine(s, s2+"\\itl2.jpg", 4);
+        //drawChecks(s, "D:\\joke.jpg");
+       // imageToDOTS(s, s2+"\\itD.jpg", 5);
+      //  imageToDOTS2(s, s2+"\\itD2.jpg", 5, false);
+
+      //  imageToLine(s, s2+"\\itl.jpg", 5);
+
+        curvedLines(s, s2+"\\cl.jpg", 4, 8);
+       // curvedCircles(s, s2+"\\cc.jpg",4,10);
+
+      //  curvedRound(s, s2+"\\cr2.jpg", 8,1,4,false);
+
     }
 
     public static void imageToBurner_G_CODE(String src, String srs, int minSpeed, int maxSpeed, float toolRadius, int liftZ, int scaleImage,float scaleGCode, boolean displayWhite) throws IOException {
         float speedScale = (maxSpeed - minSpeed) ;
-        float a4w = 11.6979166f * scaleImage;
-        float a4h = 8.2638888f * scaleImage;
-      //  boolean isUp=false;
 
-       
         luminance = 0;
         img = null;
         File f = new File(srs);
-        
+
         try {
             if (!f.exists()) {
                 f.createNewFile();
@@ -149,23 +77,10 @@ public class ImageToDotsLines {
         int imageWidth = img.getWidth();
         int imageHeight = img.getHeight();
         System.out.println("w " + imageWidth + " : h " + imageHeight);
-        /* double scale=imageWidth/((float)a4w);
-         if(scale<1)
-             scale=((float)a4w)/imageWidth;
-         if(scale*imageHeight>a4h){
-             scale=imageHeight/((float)a4h);
-             if(scale<1)
-           scale=((float)a4h)/imageHeight;
-         
-         }*/
-        //int scale =2;
+
         fw = new FileWriter(f);
 
-        // int max=(int)(scale*scale);
-        int scaleInt;/*=(int)(toolRadius*toolRadius);
-            if(scaleInt<1)
-                scaleInt=1;*/
-        //  scaleInt*=scale;        
+        int scaleInt;
         scaleInt = (int) (toolRadius * scaleImage);
 
         if (scaleInt < 1) {
@@ -173,37 +88,30 @@ public class ImageToDotsLines {
         }
         flag=false;
 
-        //   int move=(int)(scaleInt*scale);
         //int speed;
         fw.append("G90\nG0 Z0 F500\nG91\n");
         float move= scaleInt*scaleGCode;
         for (int i = 0; i < img.getHeight(); i += scaleInt) //for rows
         {
             System.out.println("nr " + i);
-            int scale= (int)(img.getWidth()/scaleInt);
+            int scale= img.getWidth()/scaleInt;
             if(!flag)
                 for (int j = scale; j >= 0; j --) //for columns
-            {
-                inLoop(i,j*scaleInt,scaleInt,speedScale,move,minSpeed,displayWhite);
-                 
-            }else
-            for (int j = 0; j <= scale; j++) //for columns
-            {
-                inLoop(i,j*scaleInt,scaleInt,speedScale,move,minSpeed,displayWhite);
-                 
-            }
-          /*  if(!isUp)
-                fw.append("G0 Z" + liftZ + " F600\n");*/
-            // fw.append("G0 Y"+scaleInt+" F3000\nG90\n");
+                {
+                    inLoop(i,j*scaleInt,scaleInt,speedScale,move,minSpeed,displayWhite);
+
+                }else
+                for (int j = 0; j <= scale; j++) //for columns
+                {
+                    inLoop(i,j*scaleInt,scaleInt,speedScale,move,minSpeed,displayWhite);
+
+                }
+
             fw.append("G0 Y" + move + " F3000\n");
-          //  fw.append("G90\nG0 X0 F5000\nG91\n");
-          /*  if(!isUp)
-                fw.append("G0 Z" + (-liftZ) + " F600\nG91\n");
-            */
+
             flag=!flag;
         }
-       // fw.append("G91\nG0 Z" + liftZ + " F600\nG90\n");
-         fw.append("G91\nG0 Z10 F600\nG90\n");
+        fw.append("G91\nG0 Z10 F600\nG90\n");
         fw.append("G28 X0 Y0");
         fw.flush();
         fw.close();
@@ -212,66 +120,43 @@ public class ImageToDotsLines {
 
     }
     private static void inLoop(int i,int j,int scaleInt,float speedScale,float move,int minSpeed, boolean displayWhite) throws IOException{
-     // System.out.println("nr "+i+" "+j);
-                luminance = 0;
-               
-          
-                    for (int y = 0; y < scaleInt; y++) //for elements in box
-                    {   
+        luminance = 0;
 
-                        for (int x = 0; x < scaleInt; x++) {
-                            if (img.getHeight() > (y + i) && img.getWidth() > (x + j)) {
-                                // try{
-                                p = img.getRGB(j + x, i + y);
-                                Color c= new Color(p);
 
-                              //  System.out.println("Rgb "+p);    
+        for (int y = 0; y < scaleInt; y++) //for elements in box
+        {
 
-                                r = (p >> 16) & 0xff;
-                                g = (p >> 8) & 0xff;
-                                b = (p & 0xff);
-                                /*
-                                r = (int) Math.round(c.getRed()*0.299);
-                                g = (int) Math.round(c.getGreen()*0.587);
-                                b = (int) Math.round(c.getBlue()*0.114);
-                                */
-                                //System.out.println("Rgb "+r+" "+" "+g+" "+b);    
-                              //  if(r>100||g>100||b>100)
-                                //System.out.println("RGB "+r+" "+g+" "+b);    
-                                int color=((r+g+b)/3);
-                               // c=new Color(color,color,color);
-                                luminance += color;//(r * 0.299 + g * 0.587 + b * 0.114);      
-                                //luminance +=(r * 0.2126 + g * 0.7152 + b * 0.0722);                         
+            for (int x = 0; x < scaleInt; x++) {
+                if (img.getHeight() > (y + i) && img.getWidth() > (x + j)) {
 
-                               // luminance += c.getRGB();
+                    p = img.getRGB(j + x, i + y);
 
-                            }
-                        }
+                    r = (p >> 16) & 0xff;
+                    g = (p >> 8) & 0xff;
+                    b = (p & 0xff);
+
+                    int color=((r+g+b)/3);
+                    luminance += color;
+
                 }
-                luminance /= (scaleInt * scaleInt);
-                System.out.println("Luminance2 "+luminance);    
+            }
+        }
+        luminance /= (scaleInt * scaleInt);
+        System.out.println("Luminance2 "+luminance);
 
-                if(luminance<240||displayWhite){
-               /*     if(isUp){
-                        fw.append("G91\nG0 Z" + (-liftZ) + " F600\n");
-                        isUp=false;
-                    }*/
-                    int speed = (int) (Math.round((luminance / 255f) * speedScale) + minSpeed);
-                    if(flag)
-                        fw.append("G0 X" +(-move) + " F" + speed + "\n");
-                    else  
-                        fw.append("G0 X" +move + " F" + speed + "\n");
-                }
-                else{
-                /*    if(!isUp){
-                        fw.append("G91\nG0 Z" + liftZ + " F600\n");
-                        isUp=true;
-                    }*/
-                    if(flag)
-                        fw.append("G0 X" +(-move) + " F5000\n");
-                    else    
-                        fw.append("G0 X" +move + " F5000\n");
-                }
+        if(luminance<240||displayWhite){
+            int speed = (int) (Math.round((luminance / 255f) * speedScale) + minSpeed);
+            if(flag)
+                fw.append("G0 X" +(-move) + " F" + speed + "\n");
+            else
+                fw.append("G0 X" +move + " F" + speed + "\n");
+        }
+        else{
+            if(flag)
+                fw.append("G0 X" +(-move) + " F5000\n");
+            else
+                fw.append("G0 X" +move + " F5000\n");
+        }
     }
 
     public static void curvedLines(String src, String srs, int scalex, int scaley) {
@@ -284,11 +169,12 @@ public class ImageToDotsLines {
         } catch (IOException ex) {
             Logger.getLogger(ImageToDotsLines.class.getName()).log(Level.SEVERE, null, ex);
         }
-        File f = new File(srs);//*src.substring(src.lastIndexOf('.'))*/);
+        File f = new File(srs);
 
         System.out.println(f.getAbsolutePath());
+        if(img==null)
+            return;
         BufferedImage bi = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
-        // Graphics graphics = bi.getGraphics();    
         Graphics2D g2d = bi.createGraphics();
 
         int max = scalex * scaley;
@@ -316,30 +202,15 @@ public class ImageToDotsLines {
                 l = Math.round((luminance / 255) * 6);
 
                 switch (l) {
-                    case 6:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 1.5));
-                        break;
-                    case 5:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 2));
-                        break;
-                    case 4:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 3));
-                        break;
-                    case 3:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 4));
-                        break;
-                    case 2:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 5));
-                        break;
-                    case 1:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 6));
-                        break;
-                    case 0:
-                        g2d.draw(plaski(q, j, i, scalex, scaley));
-                        break;
-                    default:
-                        break;
-
+                    case 6 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 1.5));
+                    case 5 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 2));
+                    case 4 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 3));
+                    case 3 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 4));
+                    case 2 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 5));
+                    case 1 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 6));
+                    case 0 -> g2d.draw(plaski(q, j, i, scalex, scaley));
+                    default -> {
+                    }
                 }
 
             }
@@ -366,16 +237,17 @@ public class ImageToDotsLines {
         File f = new File(srs);
 
         System.out.println(f.getAbsolutePath());
+        if(img==null)
+            return;
         BufferedImage bi = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
         Graphics2D g2d = bi.createGraphics();
 
-        double skalaodstepu = skala;
         //int odstep;
         int przerwa = odstep;
         System.out.println(img.getWidth() + " " + img.getHeight());
         int cenx = img.getWidth() / 2;
         int ceny = img.getHeight() / 2;
-        int malapolowa = (cenx < ceny) ? ceny : cenx;
+        int malapolowa = Math.max(cenx, ceny);
         double dystans = l;
         int lastx = 0;
         int lasty = 0;
@@ -391,14 +263,14 @@ public class ImageToDotsLines {
             double lokregu = ((2.0 * Math.PI) * dystans);
             odstep = (int) (lokregu / l);
             double stopnie = 360 / odstep;
-            dystans += (l * skalaodstepu + przerwa);
+            dystans += (l * skala + przerwa);
             for (double i = 0; i <= 360; i += stopnie) {
                 if (stopnie == 0) {
-                    dystans -= (l * skalaodstepu + przerwa);
+                    dystans -= (l * skala + przerwa);
                     ++l;//+=0.5;                                               //blokuje przy liczbach <1, 
                     odstep = (int) (lokregu / l);
                     stopnie = 360 / odstep;
-                    dystans += (l * skalaodstepu + przerwa);
+                    dystans += (l * skala + przerwa);
                     continue;
                 }
                 double deg = Math.toRadians((i));
@@ -414,6 +286,7 @@ public class ImageToDotsLines {
                 ypp = pointmy - l / 2;
                 xpk = pointmx + l / 2;
                 ypk = pointmy + l / 2;
+
                 int licznik = 0;
                 double luminance = 0;
                 if (xpp < 0) {
@@ -428,28 +301,25 @@ public class ImageToDotsLines {
                 if (ypk > img.getHeight()) {
                     ypk = img.getHeight();
                 }
-                //if(xpp<xpk&&ypp<xpk)
                 for (int x = xpp; x <= xpk; x++) {
                     for (int y = ypp; y <= ypk; y++) {
                         try {
-                            //   System.out.println(x+" "+y);                            //1026 918
                             p = img.getRGB(x, y);
                             r = (p >> 16) & 0xff;
                             g = (p >> 8) & 0xff;
                             b = p & 0xff;
                             luminance += (r * 0.3f + g * 0.59f + b * 0.11f);
-                        } catch (Exception e) {
-                            //System.err.println(x+" "+y);
-                        }
-                        ++licznik;
+                            ++licznik;
+                        }catch(ArrayIndexOutOfBoundsException ex){
 
+                        }
                     }
                 }
 
                 luminance = luminance / licznik;
                 luminance = Math.round((luminance / 255) * 8) + 1;
 
-                int dodatek = (int) ((luminance / 8) * l * skalaodstepu);
+                int dodatek = (int) ((luminance / 8) * l * skala);
 
                 if (wasup) {
                     dodatek = -dodatek;
@@ -482,19 +352,21 @@ public class ImageToDotsLines {
     }
 
     public static BufferedImage koloruj(BufferedImage img, BufferedImage imgwcolor) {
-        int p, r, g, b, luminance = 0;
+        int p, r, g, b;
         BufferedImage bi = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
         for (int x = 0; x < img.getWidth(); x++) {
             for (int y = 0; y < img.getHeight(); y++) {
-                p = img.getRGB(x, y);
-                r = (p >> 16) & 0xff;
-                g = (p >> 8) & 0xff;
-                b = p & 0xff;
-                luminance += (r * 0.3f + g * 0.59f + b * 0.11f);
-                if ((r != 0 && g != 0 && b != 0)) {
-                    bi.setRGB(x, y, imgwcolor.getRGB(x, y));
-                }
-
+                try {
+                    p = img.getRGB(x, y);
+                    r = (p >> 16) & 0xff;
+                    g = (p >> 8) & 0xff;
+                    b = p & 0xff;
+                    luminance += (r * 0.3f + g * 0.59f + b * 0.11f);
+                    if ((r != 0 && g != 0 && b != 0)) {
+                        bi.setRGB(x, y, imgwcolor.getRGB(x, y));
+                    }
+                }catch (Exception ex
+                ){}
             }
         }
 
@@ -511,11 +383,12 @@ public class ImageToDotsLines {
         } catch (IOException ex) {
             Logger.getLogger(ImageToDotsLines.class.getName()).log(Level.SEVERE, null, ex);
         }
-        File f = new File(srs);//*src.substring(src.lastIndexOf('.'))*/);
+        File f = new File(srs);
 
         System.out.println(f.getAbsolutePath());
+        if(img==null)
+            return;
         BufferedImage bi = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
-        // Graphics graphics = bi.getGraphics();    
         Graphics2D g2d = bi.createGraphics();
 
         int max = scalex * scaley;
@@ -543,30 +416,15 @@ public class ImageToDotsLines {
                 l = Math.round((luminance / 255) * 6);
 
                 switch (l) {
-                    case 6:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 1.5));
-                        break;
-                    case 5:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 2));
-                        break;
-                    case 4:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 3));
-                        break;
-                    case 3:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 4));
-                        break;
-                    case 2:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 5));
-                        break;
-                    case 1:
-                        g2d.draw(krzywa(q, j, i, scalex, scaley, 6));
-                        break;
-                    case 0:
-                        g2d.draw(plaski(q, j, i, scalex, scaley));
-                        break;
-                    default:
-                        break;
-
+                    case 6 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 1.5));
+                    case 5 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 2));
+                    case 4 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 3));
+                    case 3 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 4));
+                    case 2 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 5));
+                    case 1 -> g2d.draw(krzywa(q, j, i, scalex, scaley, 6));
+                    case 0 -> g2d.draw(plaski(q, j, i, scalex, scaley));
+                    default -> {
+                    }
                 }
 
             }
@@ -614,9 +472,11 @@ public class ImageToDotsLines {
         } catch (IOException ex) {
             Logger.getLogger(ImageToDotsLines.class.getName()).log(Level.SEVERE, null, ex);
         }
-        File f = new File(srs);//*src.substring(src.lastIndexOf('.'))*/);
+        File f = new File(srs);
 
         System.out.println(f.getAbsolutePath());
+        if(img==null)
+            return;
         BufferedImage bi = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
         Graphics graphics = bi.getGraphics();
 
@@ -626,7 +486,7 @@ public class ImageToDotsLines {
 
         int max = size * size;
         int dots;
-        Map<Integer, Integer> mapa = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> mapa = new HashMap<>();
 
         int xpos;
         int ypos;
@@ -638,14 +498,12 @@ public class ImageToDotsLines {
                 for (int y = 0; y < size; y++) {
                     for (int x = 0; x < size; x++) {
                         if (img.getHeight() > (y + i) && img.getWidth() > (x + j)) {
-                            // try{
                             p = img.getRGB(j + x, i + y);
 
                             r = (p >> 16) & 0xff;
                             g = (p >> 8) & 0xff;
                             b = p & 0xff;
                             luminance += (r * 0.3f + g * 0.59f + b * 0.11f);
-                            //    }catch(Exception e){}
                         }
                     }
                 }
@@ -658,19 +516,16 @@ public class ImageToDotsLines {
                     ypos = (int) Math.round((size) * Math.random());
                     boolean war = true;
                     while (war) {
-                        //System.out.println("\n\nMapa:\n"+mapa.toString()+"\nWartosc: "+xpos+" "+mapa.get(xpos));
                         if (mapa.containsKey(xpos)) {
                             if (mapa.get(xpos).equals(ypos)) {
                                 xpos = (int) Math.round((size) * Math.random());
                                 ypos = (int) Math.round((size) * Math.random());
-                                //System.err.println("liczę");
                             } else {
                                 war = false;
                             }
                         } else {
                             war = false;
                         }
-
                     }
                     mapa.put(xpos, ypos);
                     if (img.getWidth() > (xpos + j) && img.getHeight() > (ypos + i)) {
@@ -679,7 +534,6 @@ public class ImageToDotsLines {
 
                 }
                 mapa.clear();
-                //graphics.drawString(""+druk3(luminance), x*j, y*i);                     //moze odwrotnie             
             }
             luminance = 0;
         }
@@ -687,15 +541,15 @@ public class ImageToDotsLines {
         try {
             ImageIO.write(bi, "jpg", f);
         } catch (IOException ex) {
-            Logger.getLogger(ImageToDotsLines.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageToDotsLines.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         } catch (NullPointerException np) {
+            Logger.getLogger(ImageToDotsLines.class.getName()).log(Level.SEVERE, "null", np);
         }
 
     }
 
     public static void imageToLine(String src, String srs, int scale) {
 
-        boolean color = true;
         int p, r, g, b;
         float luminance = 0;
         BufferedImage img = null;
@@ -704,29 +558,21 @@ public class ImageToDotsLines {
         } catch (IOException ex) {
             Logger.getLogger(ImageToDotsLines.class.getName()).log(Level.SEVERE, null, ex);
         }
-        File f = new File(srs);//*src.substring(src.lastIndexOf('.'))*/);
+        File f = new File(srs);
 
         System.out.println(f.getAbsolutePath());
+        if(img==null)
+            return;
         BufferedImage bi = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
         Graphics graphics = bi.getGraphics();
 
-        if (color) {
-            graphics.setColor(java.awt.Color.WHITE);                //tło
-        } else {
-            graphics.setColor(java.awt.Color.BLACK);
-        }
+        graphics.setColor(java.awt.Color.WHITE);                //tło
         graphics.fillRect(0, 0, img.getWidth(), img.getHeight());
-
-        if (color) {
-            graphics.setColor(java.awt.Color.BLACK);
-        } else {
-            graphics.setColor(java.awt.Color.WHITE);
-        }
+        graphics.setColor(java.awt.Color.BLACK);
 
         int size = scale * 2;//8;
         int max = size * size;
         int lines;
-        int pl = scale;//4;
         for (int i = 0; i < img.getHeight(); i += size) {
 
             for (int j = 0; j < img.getWidth(); j += size) {
@@ -734,14 +580,12 @@ public class ImageToDotsLines {
                 for (int y = 0; y < size; y++) {
                     for (int x = 0; x < size; x++) {
                         if (img.getHeight() > (y + i) && img.getWidth() > (x + j)) {
-                            // try{
                             p = img.getRGB(j + x, i + y);
 
                             r = (p >> 16) & 0xff;
                             g = (p >> 8) & 0xff;
                             b = p & 0xff;
                             luminance += (r * 0.3f + g * 0.59f + b * 0.11f);
-                            //    }catch(Exception e){}
                         }
                     }
                 }
@@ -754,23 +598,22 @@ public class ImageToDotsLines {
                         graphics.drawLine(j + size - 1, i + 1, j, i + size - 2);
                     case 1:
                         graphics.drawLine(j, i - 1, j + size - 1, i + size - 2);
-                    //graphics.fillRect(j, i, size, size);break;
                     case 2:
-                        graphics.drawLine(j + pl + 1, i, j + pl - 1, i + size - 1);
+                        graphics.drawLine(j + scale + 1, i, j + scale - 1, i + size - 1);
                     case 3:
-                        graphics.drawLine(j, i + pl + 1, j + size - 1, i + pl - 1);
+                        graphics.drawLine(j, i + scale + 1, j + size - 1, i + scale - 1);
                     case 4:
-                        graphics.drawLine(j + pl - 1, i, j + pl + 1, i + size - 1);
+                        graphics.drawLine(j + scale - 1, i, j + scale + 1, i + size - 1);
                     case 5:
-                        graphics.drawLine(j, i + pl - 1, j + size - 1, i + pl + 1);
+                        graphics.drawLine(j, i + scale - 1, j + size - 1, i + scale + 1);
                     case 6:
                         graphics.drawLine(j + size - 2, i, j + 1, i + size - 1);
                     case 7:
                         graphics.drawLine(j, i + 1, j + size - 1, i + size - 2);
                     case 8:
-                        graphics.drawLine(j + pl, i, j + pl, i + size - 1);
+                        graphics.drawLine(j + scale, i, j + scale, i + size - 1);
                     case 9:
-                        graphics.drawLine(j, i + pl, j + size - 1, i + pl);
+                        graphics.drawLine(j, i + scale, j + size - 1, i + scale);
                     case 10:
                         graphics.drawLine(j, i, j + size - 1, i + size - 1);
                     case 11:
@@ -782,7 +625,6 @@ public class ImageToDotsLines {
                         break;
                 }
 
-                //graphics.drawString(""+druk3(luminance), x*j, y*i);                     //moze odwrotnie             
             }
             luminance = 0;
         }
@@ -809,6 +651,8 @@ public class ImageToDotsLines {
         File f = new File(srs);//*src.substring(src.lastIndexOf('.'))*/);
 
         System.out.println(f.getAbsolutePath());
+        if(img==null)
+            return;
         BufferedImage bi = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
         Graphics graphics = bi.getGraphics();
 
@@ -825,35 +669,29 @@ public class ImageToDotsLines {
             graphics.setColor(java.awt.Color.WHITE);
         }
 
-        int size = scale;//8;
-        int max = size * size;
+        int max = scale * scale;
         int l;
 
-        for (int i = 0; i < img.getHeight(); i += size) {
+        for (int i = 0; i < img.getHeight(); i += scale) {
 
-            for (int j = 0; j < img.getWidth(); j += size) {
+            for (int j = 0; j < img.getWidth(); j += scale) {
                 System.out.println("nr " + i + " " + j);
-                for (int y = 0; y < size; y++) {
-                    for (int x = 0; x < size; x++) {
+                for (int y = 0; y < scale; y++) {
+                    for (int x = 0; x < scale; x++) {
                         if (img.getHeight() > (y + i) && img.getWidth() > (x + j)) {
-                            // try{
                             p = img.getRGB(j + x, i + y);
 
                             r = (p >> 16) & 0xff;
                             g = (p >> 8) & 0xff;
                             b = p & 0xff;
                             luminance += (r * 0.3f + g * 0.59f + b * 0.11f);
-                            //    }catch(Exception e){}
+
                         }
                     }
                 }
                 luminance /= max;
-
                 l = Math.round((luminance / 255) * scale); //12
-
                 graphics.fillOval(j + ((scale - l) / 2), i + ((scale - l) / 2), l, l);
-
-                //graphics.drawString(""+druk3(luminance), x*j, y*i);                     //moze odwrotnie             
             }
             luminance = 0;
         }
@@ -878,32 +716,31 @@ public class ImageToDotsLines {
         }
         File f = new File(srs);//*src.substring(src.lastIndexOf('.'))*/);
 
-        System.out.println(f.getAbsolutePath());
+        if(img==null)
+            return;
         BufferedImage bi = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
         Graphics graphics = bi.getGraphics();
 
-        /*if(color)
+        if(color)
             graphics.setColor(java.awt.Color.WHITE);                //tło
-            else */
-        graphics.setColor(java.awt.Color.BLACK);
+        else
+            graphics.setColor(java.awt.Color.BLACK);
         graphics.fillRect(0, 0, img.getWidth(), img.getHeight());
 
-        /*if(color)
-            graphics.setColor(java.awt.Color.BLACK);    
-            else  */
-        graphics.setColor(java.awt.Color.WHITE);
+        if(color)
+            graphics.setColor(java.awt.Color.BLACK);
+        else
+            graphics.setColor(java.awt.Color.WHITE);
 
-        int size = scale;//8;
-        int max = size * size;
+        int max = scale * scale;
         int l;
         int iter = 1;
-        for (int i = 0; i < img.getHeight(); i += size) {
-            for (int j = 0; j < img.getWidth(); j += size) {
+        for (int i = 0; i < img.getHeight(); i += scale) {
+            for (int j = 0; j < img.getWidth(); j += scale) {
                 System.out.println("nr " + i + " " + j);
-                for (int y = 0; y < size; y++) {
-                    for (int x = 0; x < size; x++) {
+                for (int y = 0; y < scale; y++) {
+                    for (int x = 0; x < scale; x++) {
                         if (img.getHeight() > (y + i) && img.getWidth() > (x + j)) {
-                            // try{
                             p = img.getRGB(j + x, i + y);
                             if (color) {
                                 graphics.setColor(new Color(p));
@@ -913,7 +750,6 @@ public class ImageToDotsLines {
                             g = (p >> 8) & 0xff;
                             b = p & 0xff;
                             luminance += (r * 0.3f + g * 0.59f + b * 0.11f);
-                            //    }catch(Exception e){}
                         }
                     }
                 }
@@ -948,17 +784,7 @@ public class ImageToDotsLines {
         int w = bi.getWidth();
         int h = bi.getHeight();
         int s = 40;
-        int lw = 0, lh = 0;
-        /*
-       g.setColor(Color.cyan);
-       for(int i=0; i<w;i+=s)
-       {
-        g.drawLine(i, 0, i, h);
-       }
-       for(int i=0; i<h;i+=s)
-       {
-        g.drawLine(0, i, w, i);
-       }*/
+
         s = s * 2;
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(1));
@@ -968,22 +794,12 @@ public class ImageToDotsLines {
         for (int i = 0; i < w; i += s) {
 
             g2.draw(new Line2D.Float(i, 0, i, h));
-            lw++;
-            // g.drawLine(i, 0, i, h);
         }
 
         for (int i = 0; i < h; i += s) {
-            lh++;
             g2.draw(new Line2D.Float(0, i, w, i));
-
-            // g.drawLine(0, i, w, i);
         }
-        /* g.setColor(Color.blue);
-       g2.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,42));
-       //g.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,12));
-       g2.drawString("X:"+lw+" Y:"+lh, 1, 1);
-         */
-        System.out.println("\nX:" + lw + " Y:" + lh);
+
         try {
             ImageIO.write(bi, "jpg", f);
         } catch (IOException ex) {
@@ -1010,8 +826,6 @@ public class ImageToDotsLines {
 
         int xsize = bi.getWidth();
         int ysize = bi.getHeight();
-        int z = 1;
-        //  g.drawPolygon(x, y, 6);
 
         g.setColor(Color.gray);
         boolean xv = true, yv = true, v = false;
@@ -1019,46 +833,32 @@ public class ImageToDotsLines {
         do {
             g.drawPolygon(tx, y, 6);
             do {
-                // System.out.println("X"+z);
                 for (int i = 0; i < 6; i++) {
                     tx[i] = tx[i] + px;
-
-                    // System.out.print(x2[i]+", ");
                 }
-                // System.out.println();
                 g.drawPolygon(tx, y, 6);
                 for (int i = 5; i >= 0; i--) {
-                    xv = tx[i] > xsize ? false : true;
+                    xv = tx[i] <= xsize;
                 }
-
             } while (xv);
-            z++;
 
             for (int i = 0; i < 6; i++) {
                 y[i] = y[i] + py;
             }
 
-            /*  v=(v)?false:true;
-          tx=(v)?x1:x2;*/
             if (v) {
                 v = false;
 
-                for (int i = 0; i < 6; i++) {
-                    tx[i] = x2[i];
-                    // System.out.println(x2[i]);
-                }
+                System.arraycopy(x2, 0, tx, 0, 6);
             } else {
                 v = true;
-                for (int i = 0; i < 6; i++) {
-                    tx[i] = x1[i];
-                }
+                System.arraycopy(x1, 0, tx, 0, 6);
             }
 
             xv = true;
             for (int i = 5; i >= 0; i--) {
-                yv = y[i] > ysize ? false : true;
+                yv = y[i] <= ysize;
             }
-            // System.out.println("Y");
 
         } while (yv);
         /*
